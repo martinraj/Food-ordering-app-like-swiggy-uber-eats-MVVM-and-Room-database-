@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="8dp"
+    android:paddingEnd="8dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="16dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="@color/white">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/food_card">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:id="@+id/i_food_image"
+                android:scaleType="centerCrop"
+                android:layout_alignParentTop="true"
+                android:contentDescription="@string/food_image" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/t_food_name"
+                android:textSize="16sp"
+                android:padding="4dp"
+                android:textColor="@color/grey_text"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginTop="6dp"
+                android:textStyle="bold"
+                android:layout_below="@+id/i_food_image"
+                android:layout_alignParentStart="true" />
+
+            <com.marty.yummy.ui.RatingTextView
+                android:id="@+id/t_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/i_food_image"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                tools:ignore="RelativeOverlap" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/rupee_symbol"
+                android:textColor="@color/grey_text"
+                android:padding="4dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginBottom="6dp"
+                android:id="@+id/t_price"
+                android:layout_below="@+id/t_food_name"/>
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/i_plus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/t_rating"
+                android:layout_alignTop="@+id/t_food_name"
+                android:layout_marginTop="8dp"
+                app:srcCompat="@drawable/ic_plus"
+                android:padding="6dp"
+                android:background="?attr/actionBarItemBackground"/>
+
+            <TextView
+                android:id="@+id/t_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/i_plus"
+                android:layout_alignBottom="@+id/i_plus"
+                android:layout_toStartOf="@+id/i_plus"
+                android:hint="@string/_0"
+                android:textColor="@color/grey_text"
+                android:gravity="center"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:textSize="16sp" />
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_minus"
+                android:id="@+id/i_minus"
+                android:padding="6dp"
+                android:background="?attr/actionBarItemBackground"
+                android:layout_toStartOf="@+id/t_count"
+                android:layout_alignBottom="@+id/t_count"/>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</FrameLayout>

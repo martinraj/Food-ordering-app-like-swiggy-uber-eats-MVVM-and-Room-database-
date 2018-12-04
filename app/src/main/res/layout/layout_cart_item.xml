@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="8dp">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/t_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:ellipsize="end"
+                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@+id/t_total_price"
+                android:maxLines="1"
+                android:paddingEnd="8dp"
+                android:textColor="@color/grey_text"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/t_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/t_name"
+                android:padding="4dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/grey_text"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/t_multiple"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/t_name"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:gravity="center_vertical"
+                android:layout_alignTop="@+id/t_price"
+                android:layout_alignBottom="@id/t_price"
+                android:layout_toEndOf="@+id/t_price"
+                android:text="x" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/t_quantity"
+                android:textSize="12sp"
+                android:gravity="center_vertical"
+                android:textColor="@color/grey_text"
+                android:layout_toEndOf="@+id/t_multiple"
+                android:layout_alignTop="@+id/t_price"
+                android:layout_alignBottom="@id/t_price"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/t_total_price"
+                android:textColor="@color/grey_text"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"/>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:elevation="8dp"
+        android:rotation="45"
+        android:padding="4dp"
+        android:id="@+id/i_delete"
+        app:srcCompat="@drawable/ic_plus" />
+
+</RelativeLayout>

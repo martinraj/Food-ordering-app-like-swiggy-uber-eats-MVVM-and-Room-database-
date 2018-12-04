@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Yummy</string>
+    <string name="food_image">Food Image</string>
+    <string name="rupee_symbol">₹ </string>
+    <string name="_0">0</string>
+    <string name="updating_menu">Updating Menu</string>
+    <string name="loading">Loading...</string>
+    <string name="view_cart">View Cart</string>
+    <string name="sort_food">Sort Food</string>
+    <string name="sort_price">Sort by price low to high</string>
+    <string name="sort_rating">Sort by rating</string>
+    <string name="delivery_charges">Delivery Charges</string>
+    <string name="discount">Discount</string>
+    <string name="cart_total">Cart Total</string>
+    <string name="bill_details">Bill Details</string>
+    <string name="coupon">Coupon</string>
+    <string name="your_cart">Your Cart</string>
+</resources>
