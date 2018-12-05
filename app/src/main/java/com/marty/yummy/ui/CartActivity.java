@@ -174,4 +174,12 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        cartViewModel.getCartItemsLiveData().removeObserver(cartObserver);
+        cartViewModel.getGrandTotal().removeObserver(costObserver);
+        cartViewModel.getErrorString().removeObserver(errorObserver);
+        super.onDestroy();
+    }
 }
