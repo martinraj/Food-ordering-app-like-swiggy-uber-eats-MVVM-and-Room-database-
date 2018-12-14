@@ -1,7 +1,7 @@
 # MVVM-architecture-lifecycle-components-and-Room-database-project
 Food ordering app using MVVM architecture patterns, Architecture Lifecycle components, Retrofit2 and Room database.
 
-In this demo, I have covered Mediator Live data, Mutable live data, Observable, Observers, Retrofit and Room using same POJO.
+In this demo, I have covered **Mediator Live data, Mutable live data, Observable, Observers, Retrofit and Room using same POJO.**
 
 ## APP UI
 ![App UI](https://github.com/martinraj/MVVM-architecture-lifecycle-components-and-Room-database-project/blob/master/screenshots%20and%20demo/Screenshot_20181205-024745.png)   ![](https://github.com/martinraj/MVVM-architecture-lifecycle-components-and-Room-database-project/blob/master/screenshots%20and%20demo/Screenshot_20181205-024753.png)   ![](https://github.com/martinraj/MVVM-architecture-lifecycle-components-and-Room-database-project/blob/master/screenshots%20and%20demo/Screenshot_20181205-024829.png)
