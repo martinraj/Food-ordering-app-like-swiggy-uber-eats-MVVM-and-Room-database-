@@ -1,4 +1,4 @@
-# MVVM-architecture-lifecycle-components-and-Room-database-project
+# Food ordering app like Swiggy and Uber eats
 Food ordering app using MVVM architecture patterns, Architecture Lifecycle components, Retrofit2 and Room database.
 
 In this demo, I have covered **Mediator Live data, Mutable live data, Observable, Observers, Retrofit and Room using same POJO.**
