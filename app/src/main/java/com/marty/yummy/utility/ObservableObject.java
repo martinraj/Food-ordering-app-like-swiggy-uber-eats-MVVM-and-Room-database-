@@ -3,7 +3,7 @@ package com.marty.yummy.utility;
 import java.util.Observable;
 
 public class ObservableObject extends Observable {
-    private static ObservableObject instance = new ObservableObject();
+    private static final ObservableObject instance = new ObservableObject();
 
     public static ObservableObject getInstance() {
         return instance;

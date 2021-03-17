@@ -6,8 +6,10 @@ import com.marty.yummy.dbutilities.AppDatabase;
 import com.marty.yummy.model.CartItem;
 import com.marty.yummy.model.FoodDetails;
 
+//Save food to the cart in database async task.
 public class UpdateCart extends AsyncTask<FoodDetails,Void,Void> {
-    private AppDatabase db;
+    private final AppDatabase db;
+    @SuppressWarnings("deprecation")
     public UpdateCart(AppDatabase db) {
         this.db = db;
     }

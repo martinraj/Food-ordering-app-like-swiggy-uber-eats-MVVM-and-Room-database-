@@ -1,11 +1,13 @@
 package com.marty.yummy.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.AppCompatTextView;
+
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.content.ContextCompat;
 import android.util.AttributeSet;
 
 import com.marty.yummy.R;
@@ -45,9 +47,10 @@ public class RatingTextView extends AppCompatTextView {
         setCompoundDrawablesRelativeWithIntrinsicBounds(null,null, starImage,null);
     }
 
+    @SuppressLint("SetTextI18n")
     private void drawRating() {
         setTextColor(getResources().getColor(R.color.white));
-        setText(" "+String.valueOf(rating));
+        setText(" "+ rating);
         setGravity(CENTER);
         setPadding(8,8,8,8);
         if(rating>=4){

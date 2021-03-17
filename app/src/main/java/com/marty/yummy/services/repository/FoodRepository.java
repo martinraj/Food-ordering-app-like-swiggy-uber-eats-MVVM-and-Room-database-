@@ -1,6 +1,6 @@
 package com.marty.yummy.services.repository;
 
-import android.arch.lifecycle.MutableLiveData;
+import androidx.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.util.Log;
 
@@ -17,13 +17,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+//Singleton Repository instance.
 public class FoodRepository {
 
     private static FoodRepository instance;
     private static final String TAG = "FoodRepository";
 
-    private YummyAPIServices yummyAPIServices = APIClient.getClient().create(YummyAPIServices.class);
+    //API service for transactions over network.
+    private final YummyAPIServices yummyAPIServices = APIClient.getClient().create(YummyAPIServices.class);
 
+    //Method to get network response.
     public MutableLiveData<Boolean> getFoodMenu(final Context context){
 
         final MutableLiveData<Boolean> isFoodCallOngoing = new MutableLiveData<>();
@@ -48,6 +51,7 @@ public class FoodRepository {
         return isFoodCallOngoing;
     }
 
+    //Singleton implementation getInstance method.
     public static FoodRepository getInstance() {
         if(instance == null){
             synchronized (FoodRepository.class){
@@ -59,6 +63,7 @@ public class FoodRepository {
         return instance;
     }
 
+    //Populate the database.
     public void updateCart(final AppDatabase db, FoodDetails foodDetails) {
         new UpdateCart(db).execute(foodDetails);
     }

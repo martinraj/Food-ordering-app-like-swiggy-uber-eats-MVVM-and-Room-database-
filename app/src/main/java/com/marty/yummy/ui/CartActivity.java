@@ -1,22 +1,24 @@
 package com.marty.yummy.ui;
 
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+
+import android.annotation.SuppressLint;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputEditText;
-import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.marty.yummy.R;
 import com.marty.yummy.model.CartItem;
 import com.marty.yummy.ui.adapters.CartListAdapter;
@@ -116,21 +118,22 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
+    @SuppressLint("SetTextI18n")
     private void updateUI(Double grandTotal) {
         tItemsCost.setText(getString(R.string.rupee_symbol)+" "+cartViewModel.getTotalCost());
-        tGrandTotal.setText(getString(R.string.rupee_symbol)+" "+String.valueOf(grandTotal));
+        tGrandTotal.setText(getString(R.string.rupee_symbol)+" "+ grandTotal);
         if(cartViewModel.getDiscountAmt()>0){
             hDiscount.setVisibility(View.VISIBLE);
             tDiscount.setVisibility(View.VISIBLE);
             hDiscount.setText(getString(R.string.discount)+" ( 20% )");
-            tDiscount.setText(" - "+getString(R.string.rupee_symbol)+" "+String.valueOf(cartViewModel.getDiscountAmt()));
+            tDiscount.setText(" - "+getString(R.string.rupee_symbol)+" "+ cartViewModel.getDiscountAmt());
         }else{
             hDiscount.setVisibility(View.GONE);
             tDiscount.setVisibility(View.GONE);
         }
         if(cartViewModel.getDeliveryCost()>0){
             hDelivery.setText(getString(R.string.delivery_charges));
-            tDelivery.setText(" + "+getString(R.string.rupee_symbol)+" "+String.valueOf(cartViewModel.getDeliveryCost()));
+            tDelivery.setText(" + "+getString(R.string.rupee_symbol)+" "+ cartViewModel.getDeliveryCost());
             tDelivery.setPaintFlags(0);
         }else{
             hDelivery.setText(getString(R.string.delivery_charges)+" ( Free )");

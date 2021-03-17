@@ -9,6 +9,7 @@ import retrofit2.http.GET;
 
 public interface YummyAPIServices {
 
+    //Method to get the JSON response from the API.
     @GET("/data.json")
     Call<List<FoodDetails>> getFoodData();
 }

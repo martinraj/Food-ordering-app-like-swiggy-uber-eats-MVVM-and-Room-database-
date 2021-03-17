@@ -1,13 +1,13 @@
 package com.marty.yummy.viewmodel;
 
 import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MediatorLiveData;
-import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.Observer;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.marty.yummy.dbutilities.AppDatabase;
 import com.marty.yummy.model.CartItem;
@@ -23,7 +23,7 @@ import static com.marty.yummy.ui.HomeScreenActivity.ACTION_SORT_BY_RATING;
 public class FoodViewModel extends AndroidViewModel {
 
     private AppDatabase db;
-    private MediatorLiveData<List<FoodDetails>> foodDetailsMediatorLiveData = new MediatorLiveData<>();
+    private final MediatorLiveData<List<FoodDetails>> foodDetailsMediatorLiveData = new MediatorLiveData<>();
     private LiveData<List<FoodDetails>> foodDetailsLiveDataSortPrice;
     private LiveData<List<FoodDetails>> foodDetailsLiveDataSortRating;
     private LiveData<List<CartItem>> cartItemsLiveData;

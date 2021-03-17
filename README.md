@@ -8,7 +8,7 @@ In this demo, I have covered **Mediator Live data, Mutable live data, Observable
 
 ## Room and Retrofit using same Model
 
-I have used same models for Room and Retrofit2 library as both are configured using annotaions.
+I have used same models for Room and Retrofit2 library as both are configured using annotations.
 
 ```
 @Entity
@@ -277,4 +277,4 @@ public class APIClient {
 This is the overall project structure of this project.
 
 
-![Project Structure](https://github.com/martinraj/MVVM-architecture-lifecycle-components-and-Room-database-project/blob/master/screenshots%20and%20demo/Screenshot%20(114).png)
+![Project Structure](https://github.com/AyushGupta0202/Food-ordering-app-like-swiggy-uber-eats-MVVM-and-Room-database-/blob/issue-4/screenshots%20and%20demo/Screenshot%20(115).png)

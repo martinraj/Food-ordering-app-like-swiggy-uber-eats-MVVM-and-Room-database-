@@ -2,9 +2,9 @@ package com.marty.yummy.ui.adapters;
 
 
 import android.annotation.SuppressLint;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,30 +17,36 @@ import com.marty.yummy.viewmodel.CartViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
+//Adapter for the recyclerview showing foods saved to cart.
 public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.RecyclerViewHolders> {
 
     private List<CartItem> cartList;
-    private CartViewModel cartViewModel;
+    private final CartViewModel cartViewModel;
 
+    //Parameterized constructor taking the cart item list.
     public CartListAdapter(ArrayList<CartItem> cartItems, CartViewModel cartViewModel) {
         this.cartList = cartItems;
         this.cartViewModel = cartViewModel;
     }
 
+    //Set data method to provide the cart item list.
     public void setData(List<CartItem> data) {
         this.cartList = data;
     }
 
+    //ViewHolder class.
     public class RecyclerViewHolders extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private AppCompatImageView iDelete;
-        private TextView tName,tPrice,tTotalPrice,tQuantity;
+        private final TextView tName;
+        private final TextView tPrice;
+        private final TextView tTotalPrice;
+        private final TextView tQuantity;
 
 
         RecyclerViewHolders(View itemView) {
             super(itemView);
 
-            iDelete = itemView.findViewById(R.id.i_delete);
+            AppCompatImageView iDelete = itemView.findViewById(R.id.i_delete);
             tName = itemView.findViewById(R.id.t_name);
             tPrice = itemView.findViewById(R.id.t_price);
             tTotalPrice = itemView.findViewById(R.id.t_total_price);
@@ -48,6 +54,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.Recycl
             iDelete.setOnClickListener(this);
         }
 
+        //Deleting a cart item.
         @Override
         public void onClick(View view) {
             if(view.getId()==R.id.i_delete){
@@ -56,6 +63,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.Recycl
         }
     }
 
+    //Create/recycle a view to be added to the recycler view.
     @NonNull
     @Override
     public RecyclerViewHolders onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -64,13 +72,15 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.Recycl
         return new RecyclerViewHolders(layoutView);
     }
 
+    //Populating fields of the views.
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull final RecyclerViewHolders holder, int position) {
         CartItem cartItem = cartList.get(holder.getAdapterPosition());
         holder.tName.setText(cartItem.getName());
         holder.tPrice.setText("₹ "+cartItem.getPrice());
         holder.tQuantity.setText(String.valueOf(cartItem.getQuantity()));
-        holder.tTotalPrice.setText("₹ "+String.valueOf(cartItem.getQuantity()*cartItem.getPrice()));
+        holder.tTotalPrice.setText("₹ "+ cartItem.getQuantity() * cartItem.getPrice());
     }
 
 

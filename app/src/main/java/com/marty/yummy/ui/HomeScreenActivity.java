@@ -1,17 +1,20 @@
 package com.marty.yummy.ui;
 
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.PopupMenu;
+import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.PopupMenu;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,6 +29,7 @@ import com.bumptech.glide.Glide;
 import com.marty.yummy.R;
 import com.marty.yummy.model.CartItem;
 import com.marty.yummy.model.FoodDetails;
+import com.marty.yummy.network.NetworkConnection;
 import com.marty.yummy.ui.adapters.FoodListAdapter;
 import com.marty.yummy.utility.ObservableObject;
 import com.marty.yummy.viewmodel.FoodViewModel;
@@ -33,8 +37,6 @@ import com.marty.yummy.viewmodel.FoodViewModel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
-
-
 
 public class HomeScreenActivity extends AppCompatActivity implements java.util.Observer, PopupMenu.OnMenuItemClickListener {
 
@@ -45,7 +47,6 @@ public class HomeScreenActivity extends AppCompatActivity implements java.util.O
     RecyclerView foodList;
     FoodListAdapter foodListAdapter;
     AppCompatButton bCart;
-    LayoutAnimationController controller;
     ImageView infoImage;
     TextView tInfo,tTotalCost,tCartQuantity;
     Toolbar cartView;
@@ -63,6 +64,7 @@ public class HomeScreenActivity extends AppCompatActivity implements java.util.O
         toolbar.setTitle(R.string.app_name);
         setSupportActionBar(toolbar);
 
+        //Setting up the view model.
         foodViewModel = ViewModelProviders.of(this).get(FoodViewModel.class);
         foodList = findViewById(R.id.food_list);
         tInfo = findViewById(R.id.t_loading);
@@ -80,9 +82,23 @@ public class HomeScreenActivity extends AppCompatActivity implements java.util.O
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         foodList.setLayoutManager(mLayoutManager);
         foodListAdapter = new FoodListAdapter(new ArrayList<FoodDetails>());
-        controller = AnimationUtils.loadLayoutAnimation(foodList.getContext(), R.anim.layout_slide_from_bottom);
         foodList.setAdapter(foodListAdapter);
         foodList.scheduleLayoutAnimation();
+
+        //Calling checkInternetConnectivity method.
+        checkInternetConnectivity();
+    }
+
+    //Check for the network connections.
+    private void checkInternetConnectivity() {
+        boolean networkAvailable = NetworkConnection.isConnected(this);
+
+        if (!networkAvailable) {
+            tInfo.setText(R.string.no_internet_connection);
+            tInfo.setTextSize(20f);
+        } else {
+            tInfo.setTextSize(14f);
+        }
     }
 
     @Override
@@ -153,17 +169,18 @@ public class HomeScreenActivity extends AppCompatActivity implements java.util.O
         return false;
     }
 
+    @SuppressLint("SetTextI18n")
     private void updateCartUI(List<CartItem> cartItems) {
         if(cartItems!=null && cartItems.size()>0){
             cartView.setVisibility(View.VISIBLE);
-            Double cost = 0.0;
+            double cost = 0.0;
             int quantity = 0;
             for(CartItem cartItem:cartItems){
                 cost = cost+(cartItem.getPrice()*cartItem.getQuantity());
                 quantity = quantity+cartItem.getQuantity();
             }
             tCartQuantity.setText(String.valueOf(quantity));
-            tTotalCost.setText(getString(R.string.rupee_symbol)+String.valueOf(cost));
+            tTotalCost.setText(getString(R.string.rupee_symbol)+ cost);
         }else{
             cartView.setVisibility(View.GONE);
             tCartQuantity.setText("0");
