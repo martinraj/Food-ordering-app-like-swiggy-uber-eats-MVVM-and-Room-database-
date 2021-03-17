@@ -1,8 +1,8 @@
 package com.marty.yummy.model;
 
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.PrimaryKey;
-import android.support.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.annotation.NonNull;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -29,7 +29,7 @@ public class FoodDetails {
 
     @SerializedName("item_quantity")
     @Expose
-    private Integer quantity = 0;
+    private Integer quantity;
 
     public FoodDetails(@NonNull String name, Double price, Double rating, String imageUrl,Integer quantity) {
         this.name = name;

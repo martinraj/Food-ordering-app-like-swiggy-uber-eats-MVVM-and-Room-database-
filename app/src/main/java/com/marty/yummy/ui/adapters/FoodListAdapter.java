@@ -3,9 +3,9 @@ package com.marty.yummy.ui.adapters;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,40 +13,45 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.RequestOptions;
 import com.marty.yummy.R;
 import com.marty.yummy.dbutilities.AppDatabase;
 import com.marty.yummy.model.FoodDetails;
 import com.marty.yummy.ui.IndividualActivity;
 import com.marty.yummy.ui.RatingTextView;
-import com.marty.yummy.utility.GlideApp;
 import com.marty.yummy.utility.ObservableObject;
 
 import java.util.List;
 
 import static com.marty.yummy.ui.HomeScreenActivity.INTENT_UPDATE_FOOD;
-
-public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.RecyclerViewHolders> {
+//Adapter for the recyclerview showing food item to be displayed.
+public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodItemViewHolder> {
 
     private List<FoodDetails> foodList;
-    private Handler handler;
+    private final Handler handler;
 
+    //Parameterized constructor taking the cart item list.
     public void setData(List<FoodDetails> data) {
         this.foodList = data;
     }
 
-    public class RecyclerViewHolders extends RecyclerView.ViewHolder implements View.OnClickListener {
+    //ViewHolder class.
+    public class FoodItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private TextView tName,tPrice,tCount;
-        private ImageView iFood;
-        private AppCompatImageView iPlus,iMinus;
-        private RelativeLayout foodCard;
-        private RatingTextView tRating;
+        private final TextView tName;
+        private final TextView tPrice;
+        private final TextView tCount;
+        private final ImageView iFood;
+        private final AppCompatImageView iPlus;
+        private final AppCompatImageView iMinus;
+        private final RatingTextView tRating;
 
 
-        RecyclerViewHolders(View itemView) {
+        FoodItemViewHolder(View itemView) {
             super(itemView);
-            foodCard = itemView.findViewById(R.id.food_card);
+            RelativeLayout foodCard = itemView.findViewById(R.id.food_card);
             tName = foodCard.findViewById(R.id.t_food_name);
             tPrice = foodCard.findViewById(R.id.t_price);
             tCount = foodCard.findViewById(R.id.t_count);
@@ -73,22 +78,25 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.Recycl
         i.putExtra("position",position);
         return i;
     }
-
+    //Parameterized constructor taking the food item list.
     public FoodListAdapter(List<FoodDetails> listDetails) {
         this.foodList = listDetails;
         this.handler = new Handler();
     }
 
+    //Create/recycle a view to be added to the recycler view.
     @NonNull
     @Override
-    public RecyclerViewHolders onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FoodItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         @SuppressLint("InflateParams") View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_food_item, null);
-        return new RecyclerViewHolders(layoutView);
+        return new FoodItemViewHolder(layoutView);
     }
 
+    //Populating fields of the views.
+    @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull final RecyclerViewHolders holder, int position) {
+    public void onBindViewHolder(@NonNull final FoodItemViewHolder holder, int position) {
         final FoodDetails foodDetails = foodList.get(holder.getAdapterPosition());
         holder.tName.setText(foodDetails.getName());
         holder.tPrice.setText("₹ " + foodDetails.getPrice());
@@ -116,11 +124,12 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.Recycl
         }
     }
 
+    //LoadImage task to load food item image in the background.
     private class LoadImage implements Runnable {
-        ImageView imageView;
-        TextView tCount;
-        AppCompatImageView iPlus,iMinus;
-        int position;
+        final ImageView imageView;
+        final TextView tCount;
+        final AppCompatImageView iPlus,iMinus;
+        final int position;
 
         LoadImage(ImageView imageView, AppCompatImageView iMinus, AppCompatImageView iPlus, TextView tCount, int adapterPosition) {
             this.imageView = imageView;
@@ -130,11 +139,14 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.Recycl
             this.position = adapterPosition;
         }
 
+        @SuppressLint("CheckResult")
         @Override
         public void run() {
-            GlideApp.with(imageView.getContext()).load(foodList.get(position).getImageUrl())
+            RequestOptions requestOptions = new RequestOptions();
+            requestOptions.placeholder(R.drawable.ic_food);
+            Glide.with(imageView.getContext()).load(foodList.get(position).getImageUrl())
                         .transition(DrawableTransitionOptions.withCrossFade())
-                        .placeholder(R.drawable.ic_food)
+                        .apply(requestOptions)
                         .into(imageView);
             int quantity = AppDatabase.getDatabase(imageView.getContext()).cartItemDao().getCartCount(foodList.get(position).getName());
             foodList.get(position).setQuantity(quantity);

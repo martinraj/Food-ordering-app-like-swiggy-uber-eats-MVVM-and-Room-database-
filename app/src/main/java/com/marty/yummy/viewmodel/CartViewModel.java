@@ -1,14 +1,14 @@
 package com.marty.yummy.viewmodel;
 
 import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MediatorLiveData;
-import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.Observer;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.marty.yummy.dbutilities.AppDatabase;
 import com.marty.yummy.model.CartItem;
@@ -22,10 +22,10 @@ public class CartViewModel extends AndroidViewModel {
 
     private AppDatabase db;
     private Double totalCost=0.0,discount=0.0,deliveryCost=0.0;
-    private MutableLiveData<Double> grandTotal = new MutableLiveData<>();
-    private MediatorLiveData<List<CartItem>> mediatorLiveData = new MediatorLiveData<>();
+    private final MutableLiveData<Double> grandTotal = new MutableLiveData<>();
+    private final MediatorLiveData<List<CartItem>> mediatorLiveData = new MediatorLiveData<>();
     private String couponApplied="";
-    private MutableLiveData<String> errorString = new MutableLiveData<>();
+    private final MutableLiveData<String> errorString = new MutableLiveData<>();
 
     public CartViewModel(@NonNull Application application) {
         super(application);

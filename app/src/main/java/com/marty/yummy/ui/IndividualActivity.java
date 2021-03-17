@@ -1,24 +1,27 @@
 package com.marty.yummy.ui;
 
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.RequestOptions;
 import com.marty.yummy.R;
 import com.marty.yummy.model.CartItem;
 import com.marty.yummy.model.FoodDetails;
-import com.marty.yummy.utility.GlideApp;
 import com.marty.yummy.viewmodel.FoodDetailViewModel;
 
 import java.util.List;
@@ -91,20 +94,24 @@ public class IndividualActivity extends AppCompatActivity implements View.OnClic
         return true;
     }*/
 
+    @SuppressLint({"CheckResult", "SetTextI18n"})
     private void updateUI(FoodDetails foodDetails) {
+        RequestOptions requestOptions = new RequestOptions();
+        requestOptions.placeholder(R.drawable.ic_food);
         duplicateFoodDetails = foodDetails;
         if(foodDetails==null){
             return;
         }
         tName.setText(foodDetails.getName());
-        tCost.setText(getString(R.string.rupee_symbol) + String.valueOf(foodDetails.getPrice()));
-        GlideApp.with(this).load(foodDetails.getImageUrl())
+        tCost.setText(getString(R.string.rupee_symbol) + foodDetails.getPrice());
+        Glide.with(this).load(foodDetails.getImageUrl())
                 .transition(DrawableTransitionOptions.withCrossFade())
-                .placeholder(R.drawable.ic_food)
+                .apply(requestOptions)
                 .into(iFoodImage);
         tQuantity.setText(String.valueOf(foodDetails.getQuantity()));
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
         int id = view.getId();
@@ -128,17 +135,18 @@ public class IndividualActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private void updateCartUI(List<CartItem> cartItems) {
         if(cartItems!=null && cartItems.size()>0){
             cartView.setVisibility(View.VISIBLE);
-            Double cost = 0.0;
+            double cost = 0.0;
             int quantity = 0;
             for(CartItem cartItem:cartItems){
                 cost = cost+(cartItem.getPrice()*cartItem.getQuantity());
                 quantity = quantity+cartItem.getQuantity();
             }
             tCartQuantity.setText(String.valueOf(quantity));
-            tTotalCost.setText(getString(R.string.rupee_symbol)+String.valueOf(cost));
+            tTotalCost.setText(getString(R.string.rupee_symbol)+ cost);
         }else{
             cartView.setVisibility(View.GONE);
             tCartQuantity.setText("0");

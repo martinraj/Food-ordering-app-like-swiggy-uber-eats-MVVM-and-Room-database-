@@ -8,10 +8,12 @@ import com.marty.yummy.model.FoodDetails;
 import java.util.ArrayList;
 import java.util.List;
 
+//Save food item to the database async task.
 public class SaveFoodMenu extends AsyncTask<Void,Void,Void> {
-    private AppDatabase db;
-    private List<FoodDetails> foodDetails;
-    public SaveFoodMenu(AppDatabase db,List<FoodDetails> foodDetails) {
+    private final AppDatabase db;
+    private final List<FoodDetails> foodDetails;
+    @SuppressWarnings("deprecation")
+    public SaveFoodMenu(AppDatabase db, List<FoodDetails> foodDetails) {
         this.db = db;
         this.foodDetails = foodDetails;
     }
